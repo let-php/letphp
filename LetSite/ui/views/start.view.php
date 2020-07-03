@@ -17,12 +17,8 @@ defined('LETPHP') or exit('NO EXISTE!');
   {css}
 </head>
 <body>
-	<nav >
-		<a href="{$sRoutePath}">
-			<img src="{$sLogo}" class="nav--logo" />
-		</a>
-	</nav>
-  {content}   
-	{js}
+
+ {content}   
+ {js}
 </body>
 </html>
