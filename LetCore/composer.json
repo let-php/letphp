@@ -1,0 +1,8 @@
+{
+	"autoload": {
+		"classmap": [
+			"class/letphp/",
+			"../LetSite/Libs/Lib/"
+		]
+	}
+}
