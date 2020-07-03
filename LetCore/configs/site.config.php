@@ -28,7 +28,7 @@ $_CONFIG['main.path'] = ((LETPHP_IS_HTTPS) ? 'https': 'http' ). '://'. $_CONFIG[
 $_CONFIG['main.version'] = '0.1';
 $_CONFIG['main.installed'] = false;
 $_CONFIG['main.debug'] = 0;
-$_CONFIG['main.route_rewrite'] = 1; 
+$_CONFIG['main.route_rewrite'] = 2; 
 ## 1 = www.letphp.run/letphp/letcode/ 
 ## 2 = www.letphp.run/index.php?let=letcode 
 
@@ -46,7 +46,7 @@ $_CONFIG['main.site_keywords'] = "{site_name}, framework desarrollado con PHP.";
 $_CONFIG['main.site_description'] = "{site_name}, es un framework desarrollado con PHP, para hacer más sencillo y fácil el desarrollo de tus proyectos web.";
 $_CONFIG['main.site_theme'] = "";
 $_CONFIG['main.token'] = "1c5f1832d1422748a869efc3466baf74f44e1bb8";
-$_CONFIG['main.site_secure'] = 1;
+$_CONFIG['main.site_secure'] = 2;
 $_CONFIG['main.app_core'] = "app";
     
 ?>
