@@ -1,6 +1,6 @@
 <?php
     
-namespace LetApps\app\Controllers;
+namespace LetApps\App\Controllers;
 
 class Index_Controller
 {
