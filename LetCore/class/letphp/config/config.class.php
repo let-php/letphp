@@ -29,6 +29,15 @@ class LetPHP_Config
 	*/
   public function __construct()
   {
+	  if(!self::_requirements())
+	  {
+		  if(file_exists(LETPHP_LETSITE_ENGINE. 'requirements.php'))
+		  {
+				require(LETPHP_LETSITE_ENGINE. 'requirements.php');	  
+			  exit;
+		  }
+	  }
+	  
     $_CONFIG = [];
     
     ## Configuraciones para el sitio
@@ -114,6 +123,47 @@ class LetPHP_Config
 	  
   }*/
   
+  
+  public static function _requirements()
+  {
+	  error_reporting(E_ALL);
+		$memory = @ini_get('memory_limit');
+		$subString = substr($memory, -1);
+		$iString = (int) $memory;
+		switch ($subString) {
+			case 'K':
+				$iString = $iString/1000;
+				break;
+			case 'G':
+				$iString = $iString*1000;
+				break;
+			default:
+				# code...
+				break;
+		}
+		
+		if ($iString >= 64) {
+			$bMemory = true;
+		} else {
+			$bMemory = false;
+		}
+
+	  $aRequirements = [
+			'PHP Version' => [version_compare(PHP_VERSION, '7.1', '>=')],
+			//'PHP EXEC Function' => [function_exists('exec'), 'Habilita la función PHP "exec"'],
+			//'PHP GD' => [(extension_loaded('gd') && function_exists('gd_info')), 'Missing PHP library GD'],
+			//'PHP ZipArchive' => [(class_exists('ZipArchive')), 'Missing PHP ZipArchive'],
+			'PHP CURL' => [(extension_loaded('curl') && function_exists('curl_init'))],
+			'PHP Multibyte String' => [function_exists('mb_strlen')],
+			//'PHP XML extension' => [extension_loaded('xml'), 'Missing PHP library XML'],
+			'PHP memory_limit' => [($memory == '-1' ? true : $bMemory)],
+			'Cache escritura' => [(is_writable(LETPHP_LETCORE_DIRS_CACHE. 'views'. LETPHP_DS))]
+		];
+		$bPassed = true;
+		foreach($aRequirements as $bRe){ $bPassed *= $bRe[0]; }
+		return $bPassed;
+		
+  } 
   
 
 }
