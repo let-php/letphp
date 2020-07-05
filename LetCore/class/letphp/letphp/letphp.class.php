@@ -223,9 +223,6 @@ class LetPHP
    */
   public static function start()
   {
-	  Cache()->removeCache();
-	  $sTheme = ((Auth()->getSession('theme') != 'null') ? Auth()->getSession('theme') : 'pinkdiminishing');
-	  SetConfig('main.site_theme', $sTheme);
 	  $oView = LetPHP_View::getInstance();
 	  $oApp = LetPHP_App::getInstance();
 	  $oApp->setController();
@@ -263,6 +260,61 @@ class LetPHP
 	  LetPHP::getClass('letphp.auth')->removeSession('message');
   }
   
+  
+  
+  
+  
+  public static function _requirements()
+  {
+	  
+	  if(!is_writable(LETPHP_LETCORE_DIRS_CACHE. 'views'. LETPHP_DS))
+	  {
+		  $memory = @ini_get('memory_limit');
+			$subString = substr($memory, -1);
+			$iString = (int) $memory;
+			switch ($subString) {
+				case 'K':
+					$iString = $iString/1000;
+					break;
+				case 'G':
+					$iString = $iString*1000;
+					break;
+				default:
+					# code...
+					break;
+			}
+			
+			if ($iString >= 64) {
+				$bMemory = true;
+			} else {
+				$bMemory = false;
+			}
+
+		  		  
+			$aRequirements = [
+				'PHP Version' => [version_compare(PHP_VERSION, '7.1', '>='), 'Le versión de PHP que tienes es ' . PHP_VERSION . '. LetPHP requiere la versión 7.1 o una versión mayor.'],
+				//'PHP EXEC Function' => [function_exists('exec'), 'Habilita la función PHP "exec"'],
+				//'PHP GD' => [(extension_loaded('gd') && function_exists('gd_info')), 'Missing PHP library GD'],
+				//'PHP ZipArchive' => [(class_exists('ZipArchive')), 'Missing PHP ZipArchive'],
+				'PHP CURL' => [(extension_loaded('curl') && function_exists('curl_init')), 'Debes de habilitar la Libreria CURL de PHP'],
+				'PHP Multibyte String' => [function_exists('mb_strlen'), 'Debes habilitar la libreria Multibyte String de PHP'],
+				//'PHP XML extension' => [extension_loaded('xml'), 'Missing PHP library XML'],
+				'PHP memory_limit' => [($memory == '-1' ? true : $bMemory), 'El límite de memoria de su servidor es ' . $memory . '. LetPHP requiere 64MB o más.'],
+				//'Cache escritura' => [(is_writable(LETPHP_LETCORE_DIRS_CACHE. 'views'. LETPHP_DS)), 'El archivo no tiene permisos de escritura']
+			];
+			
+			$iValid = true;
+			foreach($aRequirements AS $iKey => $mValue)
+			{
+				$iValid *= $mValue[0];
+			}
+			
+		  //LetPHP_View::getInstance()->getView('requirements');
+
+		  exit;
+	  }
+	  
+  }
   
   
 }
