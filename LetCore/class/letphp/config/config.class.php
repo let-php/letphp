@@ -34,7 +34,7 @@ class LetPHP_Config
 		  if(file_exists(LETPHP_LETSITE_ENGINE. 'requirements.php'))
 		  {
 				require(LETPHP_LETSITE_ENGINE. 'requirements.php');	  
-			  exit;
+			  exit;  
 		  }
 	  }
 	  
