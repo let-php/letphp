@@ -22,7 +22,7 @@ defined('LETPHP_IS_HTTPS') or define('LETPHP_IS_HTTPS', $bIsHTTPS);
 
 ## Host
 $_CONFIG['main.host'] = $_SERVER['HTTP_HOST'];
-$_CONFIG['main.folder'] =  LETPHP_DS;
+$_CONFIG['main.folder'] =  LETPHP_DS. 'letphp/';
 //$_CONFIG['main.path'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ) ? 'https' : 'http') . '://' . $_CONFIG['main.host'] . $_CONFIG['main.folder'];
 $_CONFIG['main.path'] = ((LETPHP_IS_HTTPS) ? 'https': 'http' ). '://'. $_CONFIG['main.host']. $_CONFIG['main.folder'];;
 $_CONFIG['main.version'] = '0.1';
