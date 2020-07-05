@@ -7,7 +7,7 @@ class Index_Controller
 	public function start()
 	{
 		$oView = View();
-		
+		$oRouter = Router();
 		$aItems = [
 			['key' => 'letphp', 'route' => 'https://letphp.run' , 'text' => 'LetPHP'],
 			['key' => 'docs', 'route' => 'https://docs.letphp.run' , 'text' => 'Documentación'],
