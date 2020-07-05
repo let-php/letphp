@@ -1,0 +1,2 @@
+# ignoramos los archivos que se generan en cache
+LetCore/dirs/cache/views/
