@@ -1,0 +1,68 @@
+@import url('./reset.css');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap');
+
+:root{
+	--bg: #212122;
+	--text-title: #FF5976;
+	--color-white: #FFF6FA;
+	--font-primary: 'Baloo 2';
+}
+
+body{
+	background: var(--bg);
+	font-family: var(--font-primary);
+}
+
+.let--container
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 95vh;
+}
+
+.let--logoo img
+{
+	transform: rotate(5deg)
+}
+
+.let--welcome
+{
+	width: 80%;
+	text-align: center;
+}
+
+.let--welcome h1{
+	color: var(--color-white);
+	font-weight: bold;
+	font-size: 3.5em;
+	padding: 10px 0px;
+}
+
+.let--site-name
+{
+	color: var(--text-title);
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.let--menu {
+	width: 60%;
+}
+
+.let--menu ul{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: .5em;
+	width: 100%;
+}
+
+.let--menu-item a{
+	color: var(--text-title);
+	text-decoration: none;
+	font-size: 1.1em;
+	font-weight: bold
+}
+
