@@ -22,7 +22,7 @@ defined('LETPHP_IS_HTTPS') or define('LETPHP_IS_HTTPS', $bIsHTTPS);
 
 ## Host
 $_CONFIG['main.host'] = $_SERVER['HTTP_HOST'];
-$_CONFIG['main.folder'] = LETPHP_DS;
+$_CONFIG['main.folder'] =  LETPHP_DS;
 //$_CONFIG['main.path'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ) ? 'https' : 'http') . '://' . $_CONFIG['main.host'] . $_CONFIG['main.folder'];
 $_CONFIG['main.path'] = ((LETPHP_IS_HTTPS) ? 'https': 'http' ). '://'. $_CONFIG['main.host']. $_CONFIG['main.folder'];;
 $_CONFIG['main.version'] = '0.1';
@@ -40,7 +40,7 @@ $_CONFIG['main.session_lifetime'] = 86400 * 2;
 ## Configuracion del Sitio
 $_CONFIG['main.site_name'] = "LetPHP";
 $_CONFIG['main.site_title'] = "LetPHP Framework";
-$_CONFIG['main.site_copyright'] = "LetPHP Framework creado por LetCode ©";
+$_CONFIG['main.site_copyright'] = "LetPHP Framework creado por LetCode©";
 $_CONFIG['main.site_title_delimiter'] = "»";
 $_CONFIG['main.site_keywords'] = "{site_name}, framework desarrollado con PHP.";
 $_CONFIG['main.site_description'] = "{site_name}, es un framework desarrollado con PHP, para hacer más sencillo y fácil el desarrollo de tus proyectos web.";
