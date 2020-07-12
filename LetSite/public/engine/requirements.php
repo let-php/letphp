@@ -42,6 +42,7 @@ $aRequirements = [
 <html>
 	<head>
 		<title>LetPHP » Requerimientos para LetPHP</title>
+		<link rel="icon" href="./letphp.ico" /> 
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
 		<style>
 			:root{
@@ -79,7 +80,7 @@ $aRequirements = [
 	<nav class="navbar navbar-light fixed-top bg-light let-navbar">
 		<div class="container">
 			<a class="navbar-brand" href="https://letphp.run">
-				<img src="./letphp.ico" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+				<img src="./letphp.ico" width="30" height="30" class="d-inline-block align-top" alt="LetPHP" />
 				<span class="font-weight-bold text-uppercase h3 ml-3 let-title" >LetPHP Framework</span>
 			</a>
 		</div>
