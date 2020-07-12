@@ -104,6 +104,90 @@ class LetPHP_Auth_Handler_Session
 
 		return false;
 	}
+	
+	
+	/**
+		* Generamos un password de manera aleatoria
+		* @param integer $iLength Tamaño del password.
+		* @param integer $iStrength Fuerza en el password.
+		* @return string $sPassword 
+		*/
+  public function generatePassword(int $iLength = 9, int $iStrength = 10)
+  {
+	  $sVowels = 'uoiea';
+	  $sConsonants = 'bcdfgh';
+	  $sConsonants .= 'tvwxyz';
+	  $sConsonants .= 'jklmnopqrs';
+	  
+	  if($iStrength > 1)
+	  {
+		  $sConsonants .= "BCDFGHJKLMNPQRSTVWXYZ";
+	  }
+	  
+	  if($iStrength > 2){
+		  $sVowels .= "UEIOA";
+	  }
+	  
+	  if($iStrength > 4){
+		  $sConsonants .= "23456789";
+	  }
+	  
+	  if($iStrength > 8){
+		  $sConsonants .= "@#$%[]{}!?*;:";
+	  }
+	  
+	  $sPassword = '';
+	  $sAlt = LETPHP_TIME % 2;
+	  for($i =0 ; $i < $iLength; $i++){
+		  if($sAlt == 1){
+			  $sPassword .= $sConsonants[(rand() % strlen($sConsonants))];
+			  $sAlt = 0;
+		  }else{
+			  $sPassword .= $sVowels[(rand() % strlen($sVowels))];
+			  $sAlt = 1;
+		  }
+	  }	  
+	  return $sPassword;
+  }
+
+	/*
+		* Encriptamos nuestras contraseñas con el algoritmo
+		* password_hash(), más información en https://www.php.net/manual/function.password-hash.php
+		* @param string $sPassword contraseña a encriptar 
+		* @params integer $iCost 
+		* @return string 
+	*/
+  public function encryptPassword(string $sPassword, int $iHashType = 3, int $iCost = 12): string
+  {
+	 $aHashTypes = [
+		 CRYPT_STD_DES,
+		 CRYPT_EXT_DES,
+		 CRYPT_MD5,
+		 CRYPT_BLOWFISH,
+		 CRYPT_SHA256,
+		 CRYPT_SHA512,
+		 
+	 ];
+	  
+    $aOptions = [
+      'cost'  => $iCost
+    ];
+    return password_hash($sPassword, $aHashTypes[$iHashType], $aOptions); 
+  }
+  
+  /*
+		* Verificamos la contraseña ingresada y
+		* la almacenada en la base de datos
+		* password_verify(), más información en https://www.php.net/manual/function.password-verify.php
+		* @param string $sPassword contraseña ingresada en el formulario 
+		* @param string $sPasswordDatabase contraseña guardada en la base de datos 
+		* @return bool 
+	*/
+  public function verifyPassword(string $sPassword , string $sPasswordDatabase): bool
+  {
+    return password_verify($sPassword, $sPasswordDatabase);
+  }
+
 
 	
 }
