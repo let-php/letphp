@@ -157,13 +157,13 @@ class LetPHP_Auth_Handler_Session
 		* @params integer $iCost 
 		* @return string 
 	*/
-  public function encryptPassword(string $sPassword, int $iHashType = 3, int $iCost = 12): string
+  public function encryptPassword(string $sPassword, int $iHashType = 0, int $iCost = 12): string
   {
 	 $aHashTypes = [
+		 CRYPT_BLOWFISH,
 		 CRYPT_STD_DES,
 		 CRYPT_EXT_DES,
 		 CRYPT_MD5,
-		 CRYPT_BLOWFISH,
 		 CRYPT_SHA256,
 		 CRYPT_SHA512,
 		 
@@ -172,7 +172,7 @@ class LetPHP_Auth_Handler_Session
     $aOptions = [
       'cost'  => $iCost
     ];
-    return password_hash($sPassword, $aHashTypes[$iHashType], $aOptions); 
+    return password_hash($sPassword, $aHashTypes[$iHashType + 1], $aOptions); 
   }
   
   /*
