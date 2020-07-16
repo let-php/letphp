@@ -378,6 +378,16 @@ class LetPHP_View_Bessie extends LetPHP_View
 			case 'loadjs':
 				return '<?php echo LetPHP::getClass(\'letphp.view\')->getJScript(); ?>';
 				break;
+			case 'for':
+				$sArguments = preg_replace_callback("/\\$([A-Za-z0-9]+)/is", function ($matches) {
+					return $this->_convertVar($matches[0]);
+				}, $sArguments);
+				
+				return '<?php for (' . $sArguments . '): ?>';
+				break;
+			case '/for':
+				return "<?php endfor; ?>";
+				break;
 			case 'each': 
 				$aParams = $this->_convertParams($sArguments);
 				if (!isset($aParams['values']))
@@ -442,6 +452,16 @@ class LetPHP_View_Bessie extends LetPHP_View
 			case '/if':
 				return "<?php endif; ?>";
 				break;
+				
+			case 'itemscope':
+				$aParams = $this->_convertParams($sArguments);
+				$sType = $this->_removeQuote($aParams['type']);
+				return '<article itemscope itemtype="http://schema.org/'.$sType.'" >';
+				break;
+			
+			case '/itemscope':
+				return '</article>';
+				break;
 			case 'literal':
 				@list (,$sLiteral) = each($this->_aLiterals);
 				return "<?php echo '" . str_replace("'", "\'", $sLiteral) . "'; ?>\n";
@@ -469,16 +489,36 @@ class LetPHP_View_Bessie extends LetPHP_View
 					LetPHP::getClass(\'letphp.view\')->getBuiltViewApp(\''.$sFile.'\'); 
 				?>';
 				break;
+			case 'Config':
+			case 'config': 
+				$aParams = $this->_convertParams($sArguments);
+				$sName = $this->_removeQuote($aParams['name']);
+				return '<?php echo Config(\''.$sName.'\') ?>';
+				break;
 			case 'paginator': 
-				
 				$sReturn = '<?php LetPHP::getClass(\'letphp.view\')->getView(\'paginator\'); ?>';
 				return $sReturn;
 				break;
+			case 'time':
+				return '<?php echo LETPHP_TIME; ?>';
+				break;
 			default: 
-				
-				if ($this->_renderFunctionLetPHP($sMethod, $sModifiers, $sArguments, $sResult))
+				// existe fragment App
+				$sFragment = $sMethod;
+				if($sFragment != '')
 				{
-					return $sResult;
+					$aParams = $this->_convertParams($sArguments);
+					$sArray = '';
+					foreach($aParams as $sKey => $sValue)
+					{
+						if(substr($sValue, 0, 1) != '$' && $sValue !== 'true' && $sValue !== 'false')
+						{
+							$sValue = '\''.$this->_removeQuote($sValue).'\'';
+						}
+						$sArray .= '\''.$sKey.'\' => '.$sValue.',';
+					} 
+					$sFragment = strtolower(str_replace('_', '.', $sFragment));
+					return '<?php LetPHP::getFragment("'.$sFragment.'", ['.rtrim($sArray, ',').']); ?>'; 
 				}
 
 		}
@@ -708,9 +748,10 @@ class LetPHP_View_Bessie extends LetPHP_View
 	{
 		
 		//echo 'SS', $sFunction. $sModifiers. $sArguments. 'No';
-		exit;
+
 		//if ($sFunction = $this->_plugin($sFunction, "function"))
 		//{
+			
 			
 			$aArgs = $this->_convertParams($sArguments);
 			
@@ -726,6 +767,7 @@ class LetPHP_View_Bessie extends LetPHP_View
 				}
 				$aArgs[$mKey] = "'$mKey' => $mValue";
 			}
+			
 			$sResult = '<?php echo ';
 			if (!empty($sModifiers))
 			{
