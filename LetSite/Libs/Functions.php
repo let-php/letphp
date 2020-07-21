@@ -16,6 +16,32 @@ function App()
 {
 	return new \Lib\App();
 }
+
+/**
+	* Instancia para llamar a los Modelos
+	* @param string $sModel Nombre del Modelo.
+	* @param array $aParams Parametros a pasar al Modelo.
+	* @return object
+	*
+	*/
+function Model(string $sModel, array $aParams = [])
+{
+	return App()->getApp($sModel, $aParams, 'Models');
+}
+
+
+/**
+	* Instancia para llamar a los Fragmentos
+	* @param string $sFragment Nombre del Fragmento.
+	* @param array $aParams Parametros a pasar al Fragmento.
+	* @return object
+	*
+	*/
+function Fragment(string $sFragment, array $aParams = [], bool $bValuesView = false)
+{
+	return App()->getApp($sFragment, $aParams, 'Fragments', $bValuesView);
+}
+
 	
 /**
 	* Instancia Class Auth
