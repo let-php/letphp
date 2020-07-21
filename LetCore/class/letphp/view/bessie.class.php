@@ -390,6 +390,7 @@ class LetPHP_View_Bessie extends LetPHP_View
 				break;
 			case 'each': 
 				$aParams = $this->_convertParams($sArguments);
+
 				if (!isset($aParams['values']))
 				{
 					return '';
@@ -501,6 +502,17 @@ class LetPHP_View_Bessie extends LetPHP_View
 				break;
 			case 'time':
 				return '<?php echo LETPHP_TIME; ?>';
+				break;
+			case 'date':
+				$aParams = $this->_convertParams($sArguments);
+				if(isset($aParams['time']) AND ($aParams['time'] != '') )
+				{
+					return '<?php echo date( '.$aParams['format'].', '.$aParams['time'].' ); ?>';
+				}
+				else 
+				{
+					return '<?php echo date( '.$aParams['format'].', LETPHP_TIME); ?>';
+				}
 				break;
 			default: 
 				// existe fragment App
