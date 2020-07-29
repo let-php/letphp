@@ -614,8 +614,27 @@ class LetPHP_View
 		  echo '<br>'. LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_VIEWS. $this->_sUI. LETPHP_DS. $sType. LETPHP_DS. $sFileName. '.'. LETPHP_APP_SUFFIX_VIEW;
 		  echo '<br>'. LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_VIEWS. $this->_sUI. LETPHP_DS. $sType. LETPHP_DS. $sFileName. LETPHP_DS. 'index.'. LETPHP_APP_SUFFIX_VIEW;*/
 		  
-		  //echo LETPHP_LETAPPS. $sApp. LETPHP_DS. $sType. LETPHP_DS. $this->_sUI. LETPHP_DS. $sFileName. '.'. LETPHP_APP_SUFFIX_VIEW;
-		  if(file_exists(LETPHP_LETAPPS. $sApp. LETPHP_DS. $sType. LETPHP_DS. $sFileName. '.'. LETPHP_APP_SUFFIX_VIEW))
+		  // Buscar por tema y nombre de archivo
+		  // Existe echo '<br>'.LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_VIEWS. $this->_sUI. LETPHP_DS. $sType. LETPHP_DS. $sFileName. '.'. LETPHP_APP_SUFFIX_VIEW;
+		  //echo '<br>'.LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_VIEWS. $this->_sUI. LETPHP_DS. $sType. LETPHP_DS. $sFileName. '.'. LETPHP_APP_SUFFIX_VIEW;
+		  //echo '<br>'.LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_VIEWS. $sType. LETPHP_DS. $sFileName. '.'. LETPHP_APP_SUFFIX_VIEW;
+		  if(file_exists(LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_VIEWS. $this->_sUI. LETPHP_DS. $sType. LETPHP_DS. $sFileName. '.'. LETPHP_APP_SUFFIX_VIEW))
+		  {
+			  $sFileView = LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_VIEWS. $this->_sUI. LETPHP_DS. $sType. LETPHP_DS. $sFileName. '.'. LETPHP_APP_SUFFIX_VIEW;
+			  $bExists = true;
+		  }
+		  else if(file_exists(LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_VIEWS. $sType. LETPHP_DS. $sFileName. '.'. LETPHP_APP_SUFFIX_VIEW))
+		  {
+			  $sFileView = LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_VIEWS. $sType. LETPHP_DS. $sFileName. '.'. LETPHP_APP_SUFFIX_VIEW;
+			  $bExists = true;
+		  }
+		  else
+		  {
+			  $sFileView = LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_VIEWS. $sFileName. '.'. LETPHP_APP_SUFFIX_VIEW;
+			  $bExists = true;
+		  }
+		  
+		  /*if(file_exists(LETPHP_LETAPPS. $sApp. LETPHP_DS. $sType. LETPHP_DS. $sFileName. '.'. LETPHP_APP_SUFFIX_VIEW))
 		  {
 			  // Bien
 			  $sFileView = LETPHP_LETAPPS. $sApp. LETPHP_DS. $sType. LETPHP_DS. $sFileName. '.'. LETPHP_APP_SUFFIX_VIEW;
@@ -696,7 +715,7 @@ class LetPHP_View
 			}
 			//echo '<br>'. LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_VIEWS. $this->_sUI. LETPHP_DS. $sType. LETPHP_DS. $sFileName. '.'. LETPHP_APP_SUFFIX_VIEW;
 		  //echo '<br><br>'. LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_VIEWS. $sFileName. '.'. LETPHP_APP_SUFFIX_VIEW;
-		  		  
+		  	*/	  
 		  if($bExists && file_exists($sFileView))
 		  {
 			  return $sFileView;
