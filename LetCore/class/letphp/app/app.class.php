@@ -559,7 +559,7 @@ class LetPHP_App
 			$sHash = sha1($sClass. str_replace($aReplace, $aReplaceObject, $sType));
 		  if(isset($this->_aControllers[$sHash]))
 		  {  
-			  $this->_aControllers[$sHash]->__construct(['sApp' => '', 'sDirController' => '', 'aParams' => $aParams]);
+			  //$this->_aControllers[$sHash]->__construct(['sApp' => '', 'sDirController' => '', 'aParams' => $aParams]);
 		  }
 		  else
 		  {			
