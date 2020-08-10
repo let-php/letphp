@@ -362,8 +362,8 @@ class LetPHP_View_Bessie extends LetPHP_View
 
       case 'content':
       case 'sitecontent':
-			case 'site_content':
-				$sContent = '<?php LetPHP::getClass(\'letphp.app\')->getControllerViewApp(); ?>';
+			case 'site_content': 
+				$sContent = '<?php LetPHP::getClass(\'letphp.app\')->getControllerViewApp(\'index\'); ?>';
 				return $sContent;
 			break;
 			case 'meta':
