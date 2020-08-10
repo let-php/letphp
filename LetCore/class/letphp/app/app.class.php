@@ -674,18 +674,21 @@ class LetPHP_App
 	 * Asignamos la vista del controlador cargado.
    * @return void
    */
-  public function getControllerViewApp()
+  public function getControllerViewApp(string $sViewController = '')
   {
 	  /*if($this->_sController == '')
 	  {
 		  $this->_sController = 'index';
 	  }*/
-	  $sClass = $this->_sControllerView; //$this->_sApp . '.Controllers.' . $this->_sController;
+	  //echo 'controller'. $sViewController ;
+	  //echo $sClass = ($sViewController == '') ? $this->_sControllerView: 'index'; //$this->_sApp . '.Controllers.' . $this->_sController;
+	  $sClass = ($sViewController == '') ? $this->_sControllerView: LetPHP::getConfig('main.app_core'). '.Controllers.'. $sViewController;
 	  //$sClass =  'Controllers.'. $this->_sApp;
 	  if (isset($this->_aReturn[$sClass]) && $this->_aReturn[$sClass] === false)
 		{
 			return false;
 		}
+		
 		
 		// Obtenemos la Vista del Controlador
 		LetPHP::getClass('letphp.view')->getViewApp($sClass);
