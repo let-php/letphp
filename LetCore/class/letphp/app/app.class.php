@@ -723,7 +723,7 @@ class LetPHP_App
 		### Buscamos por el metodo de Aplicaciones
 		$aPartsModel = explode('.', $sModel);
 		$sApp = $aPartsModel[0]; 
-		//d($aPartsModel);
+		
 		$aPartsModel = (array_slice($aPartsModel, 1));
 		$sModel = implode('.', $aPartsModel);
 		$sModel = str_replace('.', LETPHP_DS, $sModel);
@@ -732,136 +732,38 @@ class LetPHP_App
 			$sModel = $sApp;
 		}
 		
-		//echo LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. LETPHP_DS. 'index.'. LETPHP_APP_SUFFIX_MODEL;
-		
 		if((file_exists(LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. LETPHP_DS. 'index.'. LETPHP_APP_SUFFIX_MODEL)))
 		{
-			//echo '<br/>OPT1';
 			$sFileModel = LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. LETPHP_DS. 'index.'. LETPHP_APP_SUFFIX_MODEL;
 			$sObject = $sApp. LETPHP_OBJECT_MODEL. 'Index';	
 			$bExistsModel = true;
 		}
 		else if(file_exists(LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. LETPHP_DS. $sModel. '.'. LETPHP_APP_SUFFIX_MODEL))
 		{
-			//echo '<br/>OPT2';
 			$sFileModel = LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. LETPHP_DS. $sModel. '.'. LETPHP_APP_SUFFIX_MODEL;
-			$sObject = $sApp. LETPHP_OBJECT_MODEL. str_replace(LETPHP_DS, '_', $sModel);
+			$sObject = str_replace([LETPHP_DIR_PARENT, LETPHP_DS], ['', '.'], LETPHP_LETAPPS. $sApp. '.Models'. LETPHP_DS. $sModel. '_Model');
 			$bExistsModel = true;
 		}
 		else if(file_exists(LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. LETPHP_DS. $sModel. LETPHP_DS. 'index.'. LETPHP_APP_SUFFIX_MODEL))
 		{
-			//echo '<br>OPT3';
 			$sFileModel = LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. LETPHP_DS. $sModel. LETPHP_DS. 'index.'. LETPHP_APP_SUFFIX_MODEL;
-			$sObject = $sApp. LETPHP_OBJECT_MODEL. str_replace(LETPHP_DS, '_', $sModel). '_Index';
+			$sObject = str_replace([LETPHP_DIR_PARENT, LETPHP_DS], ['', '.'], LETPHP_LETAPPS. $sApp. '.Models'. LETPHP_DS. $sModel. '.Index_Model');
 			$bExistsModel = true;
 		}
 		else if(file_exists(LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. LETPHP_DS. $sModel. LETPHP_DS. $sModel. '.'. LETPHP_APP_SUFFIX_MODEL))
 		{
-			//echo '<br>OPT4';
 			$sFileModel = LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. LETPHP_DS. $sModel. LETPHP_DS. $sModel. '.'. LETPHP_APP_SUFFIX_MODEL;
-			$sObject = $sApp. LETPHP_OBJECT_MODEL. $sModel. '_'. $sModel;
+			$sObject = str_replace([LETPHP_DIR_PARENT, LETPHP_DS], ['', '.'], LETPHP_LETAPPS. $sApp. '.Models.'. $sModel. LETPHP_DS. $sModel. '_Model');
 			$bExistsModel = true;
 		}
 		
-		
-		if(!$bExistsModel)
-		{
-			//echo $sModel;
-			//echo '<br/>'. LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. $sModel; //'.'. LETPHP_APP_SUFFIX_MODEL;
-		}
-		
-		
-		/*echo '<br><br>'.LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. $sModel. '.'. LETPHP_APP_SUFFIX_MODEL;
-		if((!$bExistsModel) && (file_exists(LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. $sModel. '.'. LETPHP_APP_SUFFIX_MODEL)))
-		{
-			$sFileModel = LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. $sModel. '.'. LETPHP_APP_SUFFIX_MODEL;
-			$sObject = $sApp. LETPHP_OBJECT_MODEL. str_replace(LETPHP_DS, '_', $sModel);	
-			$bExistsModel = true; 
-		}
-		
-		
-		if((!$bExistsModel) && (file_exists(LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. $sModel. LETPHP_DS. 'index.'. LETPHP_APP_SUFFIX_MODEL)))
-		{
-			
-			echo 'existe';
-			$sFileModel = LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. $sModel. LETPHP_DS. 'index.'. LETPHP_APP_SUFFIX_MODEL;
-			$sObject = $sApp. LETPHP_OBJECT_MODEL. $sModel;	
-			$bExistsModel = true; 
-		}
-		
-		//echo '<br><br/>'. LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. $sModel. LETPHP_DS. 'index.'. LETPHP_APP_SUFFIX_MODEL;
-		*/
-		
 		if($bExistsModel)
-		{		
+		{			
+			$sObject = str_replace('.', '\\', $sObject);
 			require_once($sFileModel);
 			$this->_aModels[$sModel] = LetPHP::getObject($sObject);		
 			return $this->_aModels[$sModel]; 
 		}
-		
-		//d($this->_aModels)
-		
-		//= LetPHP::getObject($sApp . '_Model_' . $sModel);		
-		//if()
-		/*if (preg_match('/\./', $sModel) && ($aParts = explode('.', $sModel)) && isset($aParts[1]))
-		{
-			$sApp = $aParts[0];
-			$sModel = $aParts[1];			
-		}
-		else 
-		{
-			$sApp = $sModel;
-			$sModel = $sModel;
-    }
-    
-    
-    /*
-    $sFile = LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. $sModel. '.'. LETPHP_APP_SUFFIX_MODEL;
-		if (!file_exists($sFile))
-		{	
-			if (isset($aParts[2]))
-			{
-				$sFile = LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. $sModel. LETPHP_DS.$aParts[2].'.'. LETPHP_APP_SUFFIX_MODEL;
-				if (!file_exists($sFile))
-				{
-					if (isset($aParts[3]) && file_exists(LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. $sModel. LETPHP_DS. $aParts[2]. LETPHP_DS. $aParts[3]. '.'. LETPHP_APP_SUFFIX_MODEL))
-					{
-						$sFile = LETPHP_LETAPPS. $sApp. LETPHP_DS. LETPHP_LETAPPS_MODELS. $sModel. LETPHP_DS. $aParts[2]. LETPHP_DS. $aParts[3]. '.'.LETPHP_APP_SUFFIX_MODEL;				
-						$sModel .= '_' . $aParts[2] . '_' . $aParts[3];
-					}
-					else 
-					{		
-						$sFile = LETPHP_LETAPPS. $sApp. LETPHP_LETAPPS_MODELS. $sModel. LETPHP_DS. $aParts[2].LETPHP_DS . $aParts[2] . '.'. LETPHP_APP_SUFFIX_MODEL;				
-						$sModel .= '_' . $aParts[2] . '_' . $aParts[2];
-					}
-				}
-				else 
-				{
-					$sModel .= '_' . $aParts[2];
-				}
-			}
-			else 
-			{
-				//echo $sFile = LETPHP_LETAPPS. $sModel. '.'. LETPHP_APP_SUFFIX_MODEL;
-				if(file_exists($sFile))
-				{				
-					$sModel .= '_'. 'Model';
-					require_once($sFile);
-					$this->_aModels[$sModel] = LetPHP::getObject($sModel);			
-				}
-				else
-				{
-					$sFile = LETPHP_LETAPPS. 'Models'. LETPHP_DS.  $sModel. '.'. LETPHP_APP_SUFFIX_MODEL;
-					require_once($sFile);
-					$sModel = 'Model_'. $sModel;
-					$this->_aModels[$sModel] = LetPHP::getObject($sModel);			
-				}
-				return $this->_aModels[$sModel];
-			}
-    }	
-    require_once($sFile);
-		$this->_aModels[$sModel] = LetPHP::getObject($sApp . '_model_' . $sModel);	
-		return $this->_aModels[$sModel];*/
   }
   
   public static function getInstance()
