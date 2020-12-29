@@ -26,7 +26,8 @@ function App()
 	*/
 function Model(string $sModel, array $aParams = [])
 {
-	return App()->getApp($sModel, $aParams, 'Models');
+	//return App()->getApp($sModel, $aParams, 'Models');
+	return App()->getModel($sModel, $aParams);
 }
 
 
