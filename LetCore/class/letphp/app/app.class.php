@@ -682,7 +682,8 @@ class LetPHP_App
 	  }*/
 	  //echo 'controller'. $sViewController ;
 	  //echo $sClass = ($sViewController == '') ? $this->_sControllerView: 'index'; //$this->_sApp . '.Controllers.' . $this->_sController;
-	  $sClass = ($sViewController == '') ? $this->_sControllerView: LetPHP::getConfig('main.app_core'). '.Controllers.'. $sViewController;
+	  //$sClass = ($sViewController == '') ? $this->_sControllerView: LetPHP::getConfig('main.app_core'). '.Controllers.'. $sViewController;
+	  $sClass = $this->_sApp. '.Controllers.'. $this->_sController;
 	  //$sClass =  'Controllers.'. $this->_sApp;
 	  if (isset($this->_aReturn[$sClass]) && $this->_aReturn[$sClass] === false)
 		{
