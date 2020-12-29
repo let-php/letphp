@@ -119,19 +119,14 @@ class LetPHP_App
 		{
 			$this->_sController = strtolower($oHttp->getParam('param2')).'.index';
 		}
-		//echo $sDir. 'Controllers'. LETPHP_DS. strtolower($oHttp->getParam('param2')). LETPHP_DS. $oHttp->getParam('param3'). '.'. LETPHP_APP_SUFFIX_CONTROLLER;
-		/*elseif($oHttp->getParam('param3') && file_exists($sDir. 'Controllers'. LETPHP_DS. strtolower($oHttp->getParam('param2')). LETPHP_DS. $oHttp->getParam('param3'). '.'. LETPHP_APP_SUFFIX_CONTROLLER))
-		{
-			echo 'Existe';
-			//$this->_sController = strtolower($oHttp->getParam('param3'). '.index');
+		else
+		{		
+	    if(($this->_sApp == LetPHP::getConfig('main.app_core')) && ($this->_sController == 'index') )
+	    {
+	      $this->_sController = 'index';
+	    }	
 		}
-		//d($oHttp);
-		echo $sDir. 'Controllers'. LETPHP_DS. strtolower($oHttp->getParam('param2')). LETPHP_DS. $oHttp->getParam('param3'). '.'. LETPHP_APP_SUFFIX_CONTROLLER;*/
 		
-    if(($this->_sApp == LetPHP::getConfig('main.app_core')) && ($this->_sController == 'index') )
-    {
-      $this->_sController = 'index';
-    }
 
     
 		if((LetPHP::getConfig('main.site_secure') == 1) && (!isset($_SERVER['HTTPS'])) )
